@@ -6,3 +6,11 @@ cd /usr/lib/chia-blockchain/resources/app.asar.unpacked/daemon && \
 ./chia init --fix-ssl-permissions ; \
 ./chia keys generate && \
 ./chia keys show --show-mnemonic-seed
+
+# qrencode generates and displays a QR-code of the wallet address within the CLI 
+
+sudo apt-get install qrencode -y && 
+sudo apt --fix-broken install -y &&
+wallet_address=$(./chia keys show --show-mnemonic-seed | grep 't\?xch.' | cut -c 23-) | echo "$(tput setaf 2) $wallet_address" &&
+qrencode $wallet_address -t ANSI256
+
